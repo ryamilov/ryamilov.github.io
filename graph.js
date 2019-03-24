@@ -384,6 +384,7 @@ function drawGraph(a, x1, x2, visibleConditions) {
 
 }
 
+//function to show current data on the graph
 function showCurrent(e) {
 
     var s = e.target.id.substring(4,5);
@@ -537,6 +538,7 @@ function switchNightMode(cb) {
     if (cb.checked) {
 
         document.getElementById("header").setAttribute("style", "background:#111736;");
+        document.getElementById("footer").setAttribute("style", "background:#111736;");
         for (i=0; i<divs.length; i++) {
             divs[i].setAttribute("style", "background:#111736;");
         }
@@ -549,6 +551,7 @@ function switchNightMode(cb) {
     else {
 
         document.getElementById("header").setAttribute("style", "background:white;");
+        document.getElementById("footer").setAttribute("style", "background:white;");
         for (i=0; i<divs.length; i++) {
             divs[i].setAttribute("style", "background:white;");
         }
