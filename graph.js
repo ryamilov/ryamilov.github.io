@@ -205,7 +205,6 @@ function loadGraph() {
         sliderMiddle[k].setAttribute("id", "rect" + k);
         sliderMiddle[k].setAttribute("class", "slider-middle-top");
         sliderMiddle[k].addEventListener("mousemove", showCurrent);
-        sliderMiddle[k].addEventListener("mouseout", hideCurrent);
         gra[k].appendChild(sliderMiddle[k]);
 
         sliderMiddle[k+data.length] = document.createElementNS("http://www.w3.org/2000/svg", "rect");
