@@ -1,7 +1,6 @@
-    
-    
+    //reading json file
     var readFile = new XMLHttpRequest();
-        readFile.open("GET", "chart_data_1.json", false);
+        readFile.open("GET", "chart_data.json", false);
         readFile.overrideMimeType("application/json");
         readFile.send(null);
     var data = JSON.parse(readFile.responseText);
