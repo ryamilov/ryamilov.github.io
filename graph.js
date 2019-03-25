@@ -546,6 +546,7 @@ function switchNightMode(cb) {
 
     if (cb.checked) {
 
+        document.getElementById("screen").setAttribute("style", "background:#111736;");
         document.getElementById("header").setAttribute("style", "background:#111736;");
         document.getElementById("footer").setAttribute("style", "background:#111736;");
         for (i=0; i<divs.length; i++) {
@@ -559,6 +560,7 @@ function switchNightMode(cb) {
     }
     else {
 
+        document.getElementById("screen").setAttribute("style", "background:white;");
         document.getElementById("header").setAttribute("style", "background:white;");
         document.getElementById("footer").setAttribute("style", "background:white;");
         for (i=0; i<divs.length; i++) {
