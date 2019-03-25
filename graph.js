@@ -389,15 +389,18 @@ function showCurrent(e) {
 
     var s = e.target.id.substring(4,5);
 
-    showLine[s].setAttribute("x1", e.offsetX);
+    var rect = this.getBoundingClientRect();
+    var xCoord = e.clientX-rect.left;
+
+    showLine[s].setAttribute("x1", xCoord);
     showLine[s].setAttribute("y1", 0);
-    showLine[s].setAttribute("x2", e.offsetX);
+    showLine[s].setAttribute("x2", xCoord);
     showLine[s].setAttribute("y2", yScale);
     showLine[s].setAttribute("stroke", "black");
     showLine[s].setAttribute("stroke-width", "1");
     showLine[s].setAttribute("visibility", "visible");
 
-    showRect[s].setAttribute("x", e.offsetX - (yMaxAll[s].toString().length*10 + 75) * e.offsetX / xScale);
+    showRect[s].setAttribute("x", xCoord - (yMaxAll[s].toString().length*10 + 75) * xCoord / xScale);
     showRect[s].setAttribute("y", -data[s].columns.length*20 - 5);
     showRect[s].setAttribute("rx", 3);
     showRect[s].setAttribute("ry", 3);
@@ -411,11 +414,11 @@ function showCurrent(e) {
     document.getElementById(e.target.id.substring(4,5)).appendChild(showGroup[s]);
     showGroup[s].appendChild(showRect[s]);
 
-    var index = parseInt(e.offsetX / xScale * (data[s].columns[0].length - 2)) + 1;
+    var index = parseInt(xCoord / xScale * (data[s].columns[0].length - 2)) + 1;
     var date = new Date(data[s].columns[0][index]);
     var str = dayNames[date.getDay()] + ", " + monthNames[date.getMonth()] + " " + date.getDate();
     showText[s][0].textContent = str;
-    showText[s][0].setAttribute("x", e.offsetX - (yMaxAll[s].toString().length*10 + 75) * e.offsetX / xScale + 10);
+    showText[s][0].setAttribute("x", xCoord - (yMaxAll[s].toString().length*10 + 75) * xCoord / xScale + 10);
     showText[s][0].setAttribute("y", -data[s].columns.length*20 + 15);
     showText[s][0].setAttribute("id", "textbox" + e.target.id);
     showGroup[s].appendChild(showText[s][0]);
@@ -424,7 +427,7 @@ function showCurrent(e) {
 
         str = data[s].names[data[s].columns[j][0]] + ": " + data[s].columns[j][index];
         showText[s][j].textContent = str;
-        showText[s][j].setAttribute("x", e.offsetX - (yMaxAll[s].toString().length*10 + 75) * e.offsetX / xScale + 25);
+        showText[s][j].setAttribute("x", xCoord - (yMaxAll[s].toString().length*10 + 75) * xCoord / xScale + 25);
         showText[s][j].setAttribute("y", -data[s].columns.length*20 + 20 + j * 15);
         showText[s][j].setAttribute("id", "textbox" + e.target.id);
         showText[s][j].setAttribute("fill", data[s].colors[data[s].columns[j][0]]);
@@ -437,29 +440,35 @@ function showCurrent(e) {
 //functions for dragging the slider
 function startMoveSlider(e) {
 
+    var rect = this.getBoundingClientRect();
+    var xCoord = e.clientX-rect.left;
+
     var s = e.target.id.substring(11, 12);
     var slider1 = document.getElementById("slider" + s+ "1");
     var slider3 = document.getElementById("slider" + s+ "3");
     var val1 = parseInt(slider1.value);
     var val3 = parseInt(slider3.value);
 
-    dif1 = e.offsetX - val1;
-    dif2 = val3 - e.offsetX;
+    dif1 = xCoord - val1;
+    dif2 = val3 - xCoord;
     ifMouseDown = true;
 
 }
 
 function moveSlider(e) {
 
+    var rect = this.getBoundingClientRect();
+    var xCoord = e.clientX-rect.left;
+
     var s = e.target.id.substring(11, 12);
     var slider1 = document.getElementById("slider" + s+ "1");
     var slider3 = document.getElementById("slider" + s+ "3");
     var val1 = parseInt(slider1.value);
     var val3 = parseInt(slider3.value);
 
-    if (ifMouseDown && (val1 < e.offsetX) && (e.offsetX < val3)) {
-            slider1.value = e.offsetX - dif1;
-            slider3.value = e.offsetX + dif2; 
+    if (ifMouseDown && (val1 < xCoord) && (xCoord < val3)) {
+            slider1.value = xCoord - dif1;
+            slider3.value = xCoord + dif2; 
             e.target.setAttribute("style", "cursor: pointer;");
             drawGraph(s, val1, val3, linesVisible);
     }
