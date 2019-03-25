@@ -388,6 +388,12 @@ function drawGraph(a, x1, x2, visibleConditions) {
 function showCurrent(e) {
 
     var s = e.target.id.substring(4,5);
+    var slider1 = document.getElementById("slider" + s+ "1");
+    var slider3 = document.getElementById("slider" + s+ "3");
+    var val1 = parseInt(slider1.value);
+    var val3 = parseInt(slider3.value);
+    xBeginIndex[s] = parseInt((data[s].columns[0].length - 2) / xScale * val1);
+    xEndIndex[s] = parseInt((data[s].columns[0].length - 2) / xScale * val3);
 
     var rect = this.getBoundingClientRect();
     var xCoord = e.clientX-rect.left;
@@ -414,7 +420,7 @@ function showCurrent(e) {
     document.getElementById(e.target.id.substring(4,5)).appendChild(showGroup[s]);
     showGroup[s].appendChild(showRect[s]);
 
-    var index = parseInt(xCoord / xScale * (data[s].columns[0].length - 2)) + 1;
+    var index = parseInt(xBeginIndex[s] + xCoord / xScale * (xEndIndex[s] - xBeginIndex[s] + 1)) + 1;
     var date = new Date(data[s].columns[0][index]);
     var str = dayNames[date.getDay()] + ", " + monthNames[date.getMonth()] + " " + date.getDate();
     showText[s][0].textContent = str;
