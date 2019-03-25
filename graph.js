@@ -398,9 +398,9 @@ function showCurrent(e) {
     var rect = this.getBoundingClientRect();
     var xCoord = e.clientX-rect.left;
 
-    showLine[s].setAttribute("x1", xCoord);
+    showLine[s].setAttribute("x1", xCoord - 1);
     showLine[s].setAttribute("y1", 0);
-    showLine[s].setAttribute("x2", xCoord);
+    showLine[s].setAttribute("x2", xCoord - 1);
     showLine[s].setAttribute("y2", yScale);
     showLine[s].setAttribute("stroke", "black");
     showLine[s].setAttribute("stroke-width", "1");
